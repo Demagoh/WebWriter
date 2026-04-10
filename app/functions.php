@@ -118,10 +118,4 @@ function inaccessiblePage($message = "This page is not accessible at this time."
     return $body;
 }
 
-/// Handling visitors of this file's "page"
-
-if (($_SERVER["HTTP_SEC_FETCH_MODE"] == "navigate" || $_SERVER["HTTP_SEC_FETCH_DEST"] == "document") && str_contains($_SERVER["SCRIPT_FILENAME"], "/functions.php")) {
-    redirectTo($_SERVER["REQUEST_SCHEME"] ."://" .str_replace(":{$_SERVER["SERVER_PORT"]}", "", $_SERVER["HTTP_HOST"]) ."/", false);
-}
-
 ?>

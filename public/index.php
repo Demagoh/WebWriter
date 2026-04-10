@@ -5,11 +5,11 @@
  * 
  * @author  Demagoh     https://github.com/Demagoh
  * @license GNU GENERAL PUBLIC LICENSE Version 3
- * @version 1.0
+ * @version 0.1
  */
 
 /// Import PHP files
-require_once("websiteFunctions.php");
+require_once("../app/functions.php");
 
 /// Generate HTML
 $HTML = "<!DOCTYPE html>\n<html>\n";
@@ -34,7 +34,7 @@ echo $HTML;
     <body style="visibility: hidden">
         <div id="page">
             text
-            <p style="text-align: center; font-size: 0.75rem;">&copy; Demagoh. All rights reserved.</p>
+            <p>&copy; Demagoh. All rights reserved.</p>
         </div>
     </body>
 </html>
