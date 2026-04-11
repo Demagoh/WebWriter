@@ -57,7 +57,7 @@ $headElements = [ // A collection of things to set up for the website so we don'
     "title" => "WebWriter",
     "favicon" => "media/placeholderLogo.png",
     "stylesheets" => [
-        "style.css"
+        "CSS/style.css"
     ],
     "keywords" => "WebWriter",
     "description" => "A small web-based writing application, developed by Demagoh.",
@@ -76,10 +76,8 @@ echo $HTML;
 <?php
 
 /// Handle based on app state
-// TODO: handle
-
-?>
-            <form id="loginForm">
+if ($appState == WW::no_login) { // If the user is not logged in show the login form.
+    echo '            <form id="loginForm">
                 <fieldset>
                     <div>
                         <h1>WebWriter</h1>
@@ -98,7 +96,12 @@ echo $HTML;
                 <fieldset>
                     <input type="submit" value="Log in" />
                 </fieldset>
-            </form>
+            </form>';
+} else { // If the user is logged in show the app UI.
+    // TODO: create app UI
+}
+
+?>
         </div>
     </body>
 </html>
