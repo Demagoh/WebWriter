@@ -55,7 +55,7 @@ $HTML = "<!DOCTYPE html>\n<html>\n";
 // <head>
 $headElements = [ // A collection of things to set up for the website so we don't have to write the entire HTML <head> manually.
     "title" => "WebWriter",
-    "favicon" => "",
+    "favicon" => "media/placeholderLogo.png",
     "stylesheets" => [
         "style.css"
     ],
@@ -79,6 +79,26 @@ echo $HTML;
 // TODO: handle
 
 ?>
+            <form id="loginForm">
+                <fieldset>
+                    <div>
+                        <h1>WebWriter</h1>
+                        <span>by <a href="https://github.demagoh.com/" target="_blank">Demagoh</a></span>
+                    </div>
+                    <img src="media/placeholderLogo.png" alt="Placeholder image for the WebWriter logo." />
+                </fieldset>
+                <fieldset>
+                    <label>Username</label>
+                    <input id="loginFormUsername" minlength="3" maxlength="30" type="text" required />
+                </fieldset>
+                <fieldset>
+                    <label>Password</label>
+                    <input id="loginFormPassword" minlength="8" type="password" required />
+                </fieldset>
+                <fieldset>
+                    <input type="submit" value="Log in" />
+                </fieldset>
+            </form>
         </div>
     </body>
 </html>

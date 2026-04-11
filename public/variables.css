@@ -1,3 +1,47 @@
+@import url(fonts.css);
+
 * {
     --background-colour: #1D1D1D;
+    
+    --snow-white: #F5FEFD;
+    --darker-snow-white: #B5BEBD;
+
+    --border-colour: var(--snow-white);
+    --border-hovering-colour: var(--border-colour);
+    --border-not-hovering-colour: var(--darker-snow-white);
+    --border-thickness: 2pt;
+    --border-thickness-thin: 1pt;
+    --border-radius-normal: calc(var(--border-thickness)*3.5);
+    --border-radius-small: calc(var(--border-thickness)*2);
+    --border-style: solid;
+
+    --margin-normal: 10pt;
+    --margin-smaller: 7pt;
+    --margin-small: 4pt;
+    --margin-bigger: 13pt;
+    --margin-big: 16pt;
+
+    --padding-normal: var(--margin-normal);
+    --padding-smaller: var(--margin-smaller);
+    --padding-small: var(--margin-small);
+    --padding-bigger: var(--margin-bigger);
+    --padding-big: var(--margin-big);
+
+    --font-colour-normal: var(--snow-white);
+    --font-colour-discrete: var(--darker-snow-white);
+    --font-monospace: "Source Code Pro";
+    --font-size-normal: .9rem;
+    --font-size-smaller: .8rem;
+    --font-size-small: .7rem;
+    --font-size-bigger: 1rem;
+    --font-size-big: 1.2rem;
+    --font-size-title: 1.5rem;
+    --font-size-title-big: 1.8rem;
+
+    --transition-duration: 0.2s;
+    --transition-timing-function: ease;
+
+    --input-background-colour: #2A2A2A;
+    --input-hovering-background-colour: var(--input-background-colour);
+    --input-not-hovering-background-colour: #222;
 }

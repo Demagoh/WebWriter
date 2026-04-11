@@ -8,3 +8,146 @@ html, body {
 body {
     background-color: var(--background-colour);
 }
+
+html, body, #page {
+    width: 100%;
+    height: 100%;
+}
+
+#page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#loginForm {
+    width: 330pt;
+
+    margin: var(--margin-normal);
+    padding: var(--padding-big);
+    
+    border: var(--border-thickness) var(--border-style) var(--border-not-hovering-colour);
+    border-radius: var(--border-radius-normal);
+    
+    display: flex;
+    flex-direction: column;
+    gap: var(--margin-normal);
+
+    transition: all var(--transition-duration) var(--transition-timing-function);
+}
+
+#loginForm:hover {
+    border-color: var(--border-hovering-colour);
+}
+
+@media screen and (width < 400pt) {
+    #loginForm {
+        width: calc(100% - var(--border-thickness)*2);
+    }
+}
+
+#loginForm > fieldset {
+    border: none;
+
+    margin: 0;
+    padding: 0;
+    
+    display: flex;
+    flex-direction: column;
+    gap: var(--margin-small);
+
+    font-family: var(--font-monospace);
+    font-size: var(--font-size-normal);
+
+    color: var(--font-colour-normal);
+
+    div {
+        margin-bottom: var(--margin-smaller);
+        
+        width: 100%;
+
+        h1 {
+            margin: 0;
+            
+            font-family: inherit;
+            font-size: var(--font-size-title-big);
+
+            color: inherit;
+        }
+
+        span {
+            font-family: inherit;
+            font-size: var(--font-size-small);
+            font-style: italic;
+
+            color: inherit;
+
+            a {
+                font-family: inherit;
+                font-size: inherit;
+                font-style: italic;
+
+                color: var(--font-colour-discrete);
+            }
+        }
+    }
+
+    img {
+        max-height: 3.2rem;
+
+        border-radius: 50%;
+
+        aspect-ratio: 1;
+    }
+
+    label {
+        padding-left: var(--padding-small);
+
+        font-family: inherit;
+        font-size: inherit;
+        
+        text-decoration: underline;
+        text-decoration-color: var(--font-colour-discrete);
+    }
+
+    input {
+        padding: var(--padding-small);
+
+        border: var(--border-thickness-thin) var(--border-style) var(--border-colour);
+        border-radius: var(--border-radius-small);
+
+        font-family: inherit;
+        font-size: inherit;
+
+        color: inherit;
+
+        background-color: var(--input-not-hovering-background-colour);
+
+        transition: all var(--transition-duration) var(--transition-timing-function);
+    }
+
+    input[type=submit] {
+        margin-top: var(--margin-smaller);
+        padding-left: var(--padding-normal);
+        padding-right: var(--padding-normal);
+
+        width: fit-content;
+        
+        border-width: var(--border-thickness);
+
+        cursor: pointer;
+    }
+
+    input:hover {
+        background-color: var(--input-hovering-background-colour);
+    }
+}
+
+#loginForm > fieldset:first-of-type {
+    flex-direction: row;
+    align-items: center;
+}
+
+#loginForm > fieldset:last-of-type {
+    align-items: center;
+}
