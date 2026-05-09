@@ -63,6 +63,9 @@ $headElements = [ // A collection of things to set up for the website so we don'
     "description" => "A small web-based writing application, developed by Demagoh.",
     "author" => "Demagoh",
     "scripts" => [],
+    "modules" => [
+        "JS/client.js"
+    ],
     "port" => "https://" .str_replace(":{$_SERVER["SERVER_PORT"]}", "", $_SERVER["HTTP_HOST"]) .str_replace(".php", "", $_SERVER["REQUEST_URI"])
 ];
 $HTML .= HTMLHead($headElements); // Generate the HTML <head> element and its subelements.
