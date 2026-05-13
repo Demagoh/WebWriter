@@ -40,7 +40,7 @@ html, body, #page {
     border-color: var(--border-hovering-colour);
 }
 
-@media screen and (width < 400pt) {
+@media screen and (width <= 450px) and (orientation: portrait) {
     #loginForm {
         width: calc(100% - var(--border-thickness)*2);
     }

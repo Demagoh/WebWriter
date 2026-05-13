@@ -45,3 +45,9 @@
     --input-hovering-background-colour: var(--input-background-colour);
     --input-not-hovering-background-colour: #222;
 }
+
+@media screen and (device-width <= 450px) and (orientation: portrait) {
+    * {
+        zoom: 115%;
+    }
+}

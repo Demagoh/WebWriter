@@ -57,9 +57,9 @@ export class WebSocketManager {
         });
 
         this.socket.addEventListener("message", (message) => {
-            console.log(message);   // print contents of message
+            // console.log(message);   // print contents of message
 
-            this.runOnMessage();    // run function for hanndling messages
+            this.runOnMessage(message);    // run function for hanndling messages
         });
     }
 
@@ -82,10 +82,16 @@ export class WebSocketManager {
     }
 
     sendMessage(message) {
-        message = JSON.stringify(message);
+        let request = {
+            source : window.location.hostname,
+            data : message
+        }
+        
+        request = JSON.stringify(request);
+        request = btoa(request);
 
         if (this.socket.readyState === WebSocket.OPEN) {
-            this.socket.send(message);
+            this.socket.send(request);
         } else {
             console.warn("No connection to WebSocket server, message failed to send.");
         }
