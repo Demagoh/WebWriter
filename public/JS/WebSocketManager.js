@@ -57,8 +57,6 @@ export class WebSocketManager {
         });
 
         this.socket.addEventListener("message", (message) => {
-            // console.log(message);   // print contents of message
-
             this.runOnMessage(message);    // run function for hanndling messages
         });
     }

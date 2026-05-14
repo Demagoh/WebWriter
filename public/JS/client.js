@@ -19,15 +19,25 @@ function handleUpdate(status) {
 
 
 /// Communication handling
+/**
+ * Function for sending request data to the API.
+ */
 function requestServer(data) {
     serverConnection.sendMessage(data);
 }
 
+/**
+ * Function for handling API responses.
+ */
 function handleServerResponse(message) {
     let fullResponse = JSON.parse(atob(message.data));
     let serverResponse = JSON.parse(fullResponse.response);
 
-    console.log(fullResponse.for);
-    console.log(serverResponse);
-    console.log(serverResponse.response.text)
+    switch(fullResponse.for) {
+        case "echo":
+            console.log(serverResponse.response.text);
+            break;
+        default:
+            console.log(serverResponse);
+    }
 }
