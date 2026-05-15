@@ -83,6 +83,10 @@ $HTML .= HTMLHead($headElements); // Generate the HTML <head> element and its su
 /// Display generated HTML
 echo $HTML;
 
+setcookie("test1", "lol1", time()+3600);
+setcookie("test2", "lol2", time()+3600);
+setcookie("test3", "lol3", time()+3600);
+
 ?>
     <body>
         <div id="page">
@@ -107,7 +111,10 @@ if ($appState == WW::no_login) { // If the user is not logged in show the login 
                     <input id="loginFormPassword" minlength="8" type="password" required />
                 </fieldset>
                 <fieldset>
-                    <input type="submit" value="Log in" />
+                    <span id="loginFormError"></span>
+                </fieldset>
+                <fieldset>
+                    <input id="loginFormSubmit" type="submit" value="Log in" />
                 </fieldset>
             </form>';
 } else { // If the user is logged in show the app UI.

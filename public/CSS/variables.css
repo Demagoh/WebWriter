@@ -5,6 +5,7 @@
     
     --snow-white: #F5FEFD;
     --darker-snow-white: #B5BEBD;
+    --error-red: #E04040;
 
     --border-colour: var(--snow-white);
     --border-hovering-colour: var(--border-colour);

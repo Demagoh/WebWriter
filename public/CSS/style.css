@@ -127,7 +127,6 @@ html, body, #page {
     }
 
     input[type=submit] {
-        margin-top: var(--margin-smaller);
         padding-left: var(--padding-normal);
         padding-right: var(--padding-normal);
 
@@ -141,6 +140,12 @@ html, body, #page {
     input:hover {
         background-color: var(--input-hovering-background-colour);
     }
+
+    #loginFormError {
+        font-size: var(--font-size-smaller);
+
+        color: var(--error-red);
+    }
 }
 
 #loginForm > fieldset:first-of-type {
@@ -149,5 +154,9 @@ html, body, #page {
 }
 
 #loginForm > fieldset:last-of-type {
+    align-items: center;
+}
+
+#loginForm > fieldset:has(#loginFormError) {
     align-items: center;
 }

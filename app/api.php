@@ -1,5 +1,22 @@
 <?php
 
+/// Import files
+require_once("credentials.php");    // This script holds the credentials of the database user
+                                    // in variables $DBUsername and $DBPassword.
+
+
+
+/// Connect to database
+try {   // I'm using PDO for this app to make it easier for others to switch to different DB.
+    $DB = new PDO('mysql:host=localhost;dbname=WebWriter', $DBUsername, $DBPassword);
+} catch (PDOException $e) { // If database connection failed we display the SQLSTATE code we got.
+    response([
+        "reason" => "Database returned SQLCODE " .$e->getCode() ."."
+    ], false);
+}
+
+
+
 /// Handle request
 if ($argc != 2) {
     die('{"error":"Invalid API usage."}');
@@ -8,19 +25,61 @@ if ($argc != 2) {
 $APIRequest = base64_decode($argv[1]);
 $APIRequestData = json_decode($APIRequest, true);
 
-$request = $APIRequestData["request"];
+$request = explode("/", $APIRequestData["request"]);
 $data = $APIRequestData["data"];
 
 
 
 /// Execute based on request type
-switch ($request) {
+switch ($request[0]) {
     case "echo":
         response($data);
+    case "login":
+        if (!isset($data["username"])) {
+            response([
+                "reason" => "Missing login username."
+            ], false);
+        }
+
+        if (!isset($data["password"])) {
+            response([
+                "reason" => "Missing login password."
+            ], false);
+        }
+
+        $username = $data["username"];
+        $password = $data["password"];
+
+        $query = $DB->prepare(" SELECT ID
+                                FROM User
+                                WHERE Username = :username AND
+                                Password = :password;");
+        $query->bindParam(":username", $username);
+        $query->bindParam(":password", $password);
+        if ($query->execute()) {
+            if ($query->rowCount() != 1) {
+                response([
+                    "status" => "error",
+                    "reason" => "No unique users with this username and password exist."
+                ]);
+            } else {
+                $userID = $query->fetch()["ID"];
+                response([
+                    "status" => "success",
+                    "userID" => $userID,
+                    "cookieValue" => hash("sha256", $username) .$password
+                ]);
+            }
+        } else {
+            response([
+                "reason" => "Something went wrong when retrieving stored user login data."
+            ], false);
+        }
+
     default:
         // handle unkown requests
         response([
-            "reason" => "Unkown request: \"" .$request ."\""
+            "reason" => "Unkown request: \"" .implode("/", $request) ."\""
         ], false);
 }
 
@@ -28,7 +87,7 @@ switch ($request) {
 
 /// Handle response
 /**
- * Function that sends the response back to the client
+ * Function that sends the response back to the client.
  * 
  * @param   array   $response       Associative array with the data we want to send back.
  * @param   bool    $success        Flag for setting the request success status.
