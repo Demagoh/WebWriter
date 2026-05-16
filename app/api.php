@@ -63,10 +63,8 @@ switch ($request[0]) {
                     "reason" => "No unique users with this username and password exist."
                 ]);
             } else {
-                $userID = $query->fetch()["ID"];
                 response([
                     "status" => "success",
-                    "userID" => $userID,
                     "cookieValue" => hash("sha256", $username) .$password
                 ]);
             }
@@ -75,12 +73,49 @@ switch ($request[0]) {
                 "reason" => "Something went wrong when retrieving stored user login data."
             ], false);
         }
+    case "user":
+        if (!isset($request[1])) {
+            unkown();
+        }
 
+        switch ($request[1]) {
+            case "data":
+                if (!isset($data["cookie"])) {
+                    response([
+                        "reason" => "Missing WebWriter cookie data."
+                    ], false);
+                }
+
+                $cookie = $data["cookie"];
+
+                $username = substr($cookie, 0, 64);
+                $password = substr($cookie, 64, 64);
+
+                $query = $DB->prepare(" SELECT ID, Username
+                                        FROM User
+                                        WHERE SHA2(Username, 256) = :username AND
+                                        Password = :password;");
+                $query->bindParam(":username", $username);
+                $query->bindParam(":password", $password);
+                if ($query->execute()) {
+                    $result = $query->fetch();
+                    $userID = $result["ID"];
+                    $username = $result["Username"];
+                    response([
+                        "userID" => $userID,
+                        "username" => $username
+                    ]);
+                } else {
+                    response([
+                        "reason" => "Something went wrong when retrieving stored user data."
+                    ]);
+                }
+            default:
+                unkown();
+        }
     default:
         // handle unkown requests
-        response([
-            "reason" => "Unkown request: \"" .implode("/", $request) ."\""
-        ], false);
+        unkown();
 }
 
 
@@ -100,6 +135,18 @@ function response($response = [], $success = true) {
     ];
 
     die(json_encode($serverResponse));
+}
+
+/**
+ * Function for creating and sending an "Unkown request ..." response to the client.
+ * @return  null    Doesn't return anything.
+ */
+function unkown() {
+    global $request;
+
+    response([
+        "reason" => "Unkown request: \"" .implode("/", $request) ."\""
+    ], false);
 }
 
 ?>

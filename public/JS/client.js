@@ -5,19 +5,24 @@ import {loginFormHandler, loginForm} from "./login.js";
 
 
 /// Login
+let userData = {
+    ID : null,
+    username : null
+}
+
 let cookies = document.cookie.split(";");
 for (let i = 0; i < cookies.length; i++) {
     cookies[i] = cookies[i].trim().split("=");
 }
 
-let loggedIn = false;
+let loggedIn = -1;
 for (let i = 0; i < cookies.length; i++) {
     if (cookies[i][0] === "webwriter") {
-        loggedIn = true;
+        loggedIn = i;
     }
 };
 
-if (!loggedIn) {
+if (loggedIn === -1) {
     loginFormHandler(requestServer);
 }
 
@@ -30,12 +35,21 @@ let serverConnection = new WebSocketManager("wss://ws.demagoh.com/", handleServe
 function handleUpdate(status) {
     switch (status) {
         case "registered":
-            requestServer({
+            /* requestServer({
                 request : "echo",
                 data : {
                     text : "test"
                 }
-            });
+            }); */
+
+            if (loggedIn !== -1) {
+                requestServer({
+                    request : "user/data",
+                    data : {
+                        cookie : cookies[loggedIn][1]
+                    }
+                });
+            }
             break;
     }
 }
@@ -58,7 +72,8 @@ function handleServerResponse(message) {
     let serverResponse = JSON.parse(fullResponse.response);
 
     if (serverResponse.status === "successful") {
-        switch(fullResponse.for) {
+        let forRequest = fullResponse.for.split("/");
+        switch (forRequest[0]) {
             case "echo":
                 console.log(serverResponse.response.text);
                 break;
@@ -67,8 +82,28 @@ function handleServerResponse(message) {
                     // console.error(serverResponse.response.reason);
                     loginForm.errorField.innerHTML = serverResponse.response.reason;
                 } else {
-                    // console.log(serverResponse.response.userID);
                     document.cookie = ("webwriter=" + serverResponse.response.cookieValue);
+                    window.location.reload();
+                }
+                break;
+            case "user":
+                if (forRequest[1] !== undefined && forRequest[1] !== "") {
+                    switch (forRequest[1]) {
+                        case "data":
+                            userData.ID = serverResponse.response.userID;
+                            userData.username = serverResponse.response.username;
+
+                            // there's no point in getting the user data from the server every time
+                            // the WebSocket reconnects
+                            loggedIn = -1;
+
+                            // console.log(userData);
+                            break;
+                        default:
+                            console.log(serverResponse);
+                    }
+                } else {
+                    console.log(serverResponse.response.reason);
                 }
                 break;
             default:

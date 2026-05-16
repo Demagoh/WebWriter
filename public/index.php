@@ -39,12 +39,16 @@ foreach ($_COOKIE as $cookieName => $cookieValue) {
                                 Password = :password;");
         $query->bindParam(":username", $username);
         $query->bindParam(":password", $password);
-        $query->execute();
-
-        print_r($query);
-
-        $loginCookie = true; // placeholder value, change later
-        $appState = WW::login_valid;
+        if ($query->execute()) {
+            if ($query->rowCount() != 1) {
+                $appState = WW::login_invalid;
+            } else {
+                $appState = WW::login_valid;
+            }
+        } else {
+            $appState = WW::login_invalid;
+        }
+        
         break;  // There should only be one WebWriter cookie, if there are any others...
                 // I'd like to know how that happened.
     }
@@ -82,10 +86,6 @@ $HTML .= HTMLHead($headElements); // Generate the HTML <head> element and its su
 
 /// Display generated HTML
 echo $HTML;
-
-setcookie("test1", "lol1", time()+3600);
-setcookie("test2", "lol2", time()+3600);
-setcookie("test3", "lol3", time()+3600);
 
 ?>
     <body>
