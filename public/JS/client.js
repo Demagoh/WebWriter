@@ -29,7 +29,7 @@ let serverConnection = new WebSocketManager("wss://ws.demagoh.com/", handleServe
 
 function handleUpdate(status) {
     switch (status) {
-        case "connected":
+        case "registered":
             requestServer({
                 request : "echo",
                 data : {
