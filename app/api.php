@@ -126,7 +126,7 @@ switch ($request[0]) {
  * 
  * @param   array   $response       Associative array with the data we want to send back.
  * @param   bool    $success        Flag for setting the request success status.
- * @return  null                    Doesn't return anything.   
+ * @return  void                    Doesn't return anything.   
  */
 function response($response = [], $success = true) {
     $serverResponse = [
@@ -139,7 +139,7 @@ function response($response = [], $success = true) {
 
 /**
  * Function for creating and sending an "Unkown request ..." response to the client.
- * @return  null    Doesn't return anything.
+ * @return  void    Doesn't return anything.
  */
 function unkown() {
     global $request;

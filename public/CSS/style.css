@@ -126,6 +126,14 @@ html, body, #page {
         transition: all var(--transition-duration) var(--transition-timing-function);
     }
 
+    input:not([type=submit]):not(.invalid):valid {
+        border-color: var(--accent-lighter);
+    }
+
+    input:is(.invalid) {
+        border-color: var(--error-red);
+    }
+
     input[type=submit] {
         padding-left: var(--padding-normal);
         padding-right: var(--padding-normal);
@@ -134,7 +142,21 @@ html, body, #page {
         
         border-width: var(--border-thickness);
 
+        text-decoration-color: var(--error-red);
+
         cursor: pointer;
+    }
+
+    input[type=submit]:is(.validInputs) {
+        border-color: var(--border-colour);
+    }
+
+    input[type=submit]:not(.validInputs):hover {
+        border-color: var(--error-red);
+
+        text-decoration: line-through;
+        text-decoration-color: var(--error-red);
+        text-decoration-thickness: 2pt;
     }
 
     input:hover {

@@ -30,7 +30,11 @@ if (loggedIn === -1) {
 
 /// WebSocket
 
-let serverConnection = new WebSocketManager("wss://ws.demagoh.com/", handleServerResponse, handleUpdate);
+let serverConnection = new WebSocketManager(
+    "wss://ws.demagoh.com/",
+    handleServerResponse,
+    handleUpdate
+);
 
 function handleUpdate(status) {
     switch (status) {
@@ -81,6 +85,13 @@ function handleServerResponse(message) {
                 if (serverResponse.response.status === "error") {
                     // console.error(serverResponse.response.reason);
                     loginForm.errorField.innerHTML = serverResponse.response.reason;
+
+                    loginForm.usernameInput.classList.add("invalid");
+                    loginForm.previousUsernameValue = loginForm.usernameInput.value;
+                    loginForm.passwordInput.classList.add("invalid");
+                    loginForm.previousPasswordValue = loginForm.passwordInput.value;
+
+                    loginForm.submitButton.classList.remove("validInputs");
                 } else {
                     document.cookie = ("webwriter=" + serverResponse.response.cookieValue);
                     window.location.reload();

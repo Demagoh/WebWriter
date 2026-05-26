@@ -2,19 +2,30 @@
 
 * {
     --background-colour: #1D1D1D;
+    --background-colour-darker: #151515;
+    --background-colour-dark: #101010;
     
     --snow-white: #F5FEFD;
     --darker-snow-white: #B5BEBD;
+    --dark-snow-white: #959E9D;
     --error-red: #E04040;
+    --accent: #53E653;
+    --accent-lighter: #74EA74;
+    --accent-light: #A4EAA4;
+    --navigation-a-colour: #F7B033;
 
     --border-colour: var(--snow-white);
     --border-hovering-colour: var(--border-colour);
+    --border-hovering-colour-dark: var(--darker-snow-white);
     --border-not-hovering-colour: var(--darker-snow-white);
+    --border-not-hovering-colour-dark: var(--dark-snow-white);
+    --border-not-hovering-disappear: var(--background-colour);
     --border-thickness: 2pt;
     --border-thickness-thin: 1pt;
     --border-radius-normal: calc(var(--border-thickness)*3.5);
     --border-radius-small: calc(var(--border-thickness)*2);
     --border-style: solid;
+    --border-style-sub: dashed;
 
     --margin-normal: 10pt;
     --margin-smaller: 7pt;
@@ -27,6 +38,11 @@
     --padding-small: var(--margin-small);
     --padding-bigger: var(--margin-bigger);
     --padding-big: var(--margin-big);
+    --padding-list-adjustment: 0px;
+
+    --gap-size: var(--margin-normal);
+
+    --hover-indent: var(--margin-small);
 
     --font-colour-normal: var(--snow-white);
     --font-colour-discrete: var(--darker-snow-white);
@@ -38,6 +54,7 @@
     --font-size-big: 1.2rem;
     --font-size-title: 1.5rem;
     --font-size-title-big: 1.8rem;
+    --font-lean: 10deg;
 
     --transition-duration: 0.2s;
     --transition-timing-function: ease;
