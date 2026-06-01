@@ -235,3 +235,193 @@ html, body, #page {
 #loginForm > fieldset:has(#loginFormError) {
     align-items: center;
 }
+
+#navigation, #editor, #settings {
+    height: calc(100% - var(--margin-normal)*2);
+
+    margin: var(--margin-normal);
+
+    background-color: var(--background-colour-darker);
+
+    border: var(--border-thickness) var(--border-style-sub) var(--border-not-hovering-colour-dark);
+
+    font-family: var(--font-monospace);
+    color: var(--font-colour-normal);
+
+    box-sizing: border-box;
+
+    transition: all var(--transition-duration) var(--transition-timing-function);
+}
+
+#navigation:hover {
+    border-color: var(--accent-light);
+}
+
+#editor:hover, #settings:hover {
+    border-color: var(--border-hovering-colour-dark);
+}
+
+#navigation {
+    width: 15%;
+    min-width: min-content;
+    max-width: 250pt;
+    height: calc(100% - var(--margin-normal)*2);
+
+    margin-right: var(--margin-small);
+    padding: var(--padding-normal);
+
+    display: flex;
+    flex-direction: column;
+    gap: var(--margin-smaller);
+
+    overflow-y: auto;
+
+    button {
+        background-color: var(--background-colour-darker);
+
+        padding: var(--padding-small) var(--padding-smaller);
+
+        border: var(--border-thickness) var(--border-style) var(--border-not-hovering-colour);
+        border-radius: var(--border-radius-small);
+
+        display: grid;
+        grid-template-columns: min-content max-content;
+        align-items: center;
+        gap: var(--margin-smaller);
+
+        font-family: inherit;
+        font-size: var(--font-size-normal);
+        font-style: oblique 0.01deg;
+        color: inherit;
+
+        transition: all var(--transition-duration) var(--transition-timing-function);
+
+        span {
+            font-size: inherit;
+        }
+    }
+
+    button:hover {
+        border-color: var(--border-hovering-colour);
+
+        font-style: oblique var(--font-lean);
+    }
+
+    #navigationEditor:hover {
+        border-color: var(--accent);
+    }
+
+    #navigationSettings:hover {
+        border-color: var(--navigation-a-colour);
+    }
+
+    #navigationLogout:hover {
+        border-color: var(--error-red);
+    }
+
+    div {
+        height: 100%;
+
+        display: flex;
+        flex-direction: column;
+        gap: var(--margin-smaller);
+
+        button {
+            border-style: var(--border-style-sub);
+
+            height: min-content;
+
+            cursor: pointer;
+
+            span {
+                text-wrap: nowrap;
+                text-overflow: ellipsis;
+            }
+        }
+
+        #navigationNewFile:hover {
+            border-color: var(--accent-lighter);
+        }
+    }
+}
+
+#editor, #settings {
+    width: 100%;
+
+    border-style: var(--border-style);
+}
+
+#editor {
+    display: flex;
+}
+
+#settings {
+    display: none;
+}
+
+#logout {
+    background-color: #00000088;
+
+    width: 100%;
+    height: 100%;
+
+    position: fixed;
+
+    display: none;
+    justify-content: center;
+    align-items: center;
+
+    font-family: var(--font-monospace);
+    font-size: var(--font-size-normal);
+    color: var(--font-colour-normal);
+
+    z-index: 100;
+
+    div {
+        background-color: var(--background-colour-dark);
+
+        padding: var(--padding-big);
+
+        border: var(--border-thickness) var(--border-style-sub) var(--error-red);
+        border-radius: var(--border-radius-normal);
+
+        div {
+            margin-top: var(--margin-normal);
+            padding: 0;
+
+            border: none;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: var(--margin-normal);
+            
+            button {
+                background-color: var(--background-colour-dark);
+
+                width: 30%;
+
+                padding: calc(var(--padding-small)/2);
+
+                border: var(--border-thickness) var(--border-style) var(--border-not-hovering-colour-dark);
+                border-radius: var(--border-radius-small);
+
+                font-family: inherit;
+                font-size: var(--font-size-smaller);
+                color: inherit;
+
+                cursor: pointer;
+
+                transition: all var(--transition-duration) var(--transition-timing-function);
+            }
+
+            button:hover {
+                border-color: var(--border-hovering-colour);
+            }
+
+            #logoutConfirm:hover {
+                border-color: var(--error-red);
+            }
+        }
+    }
+}

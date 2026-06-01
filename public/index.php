@@ -123,7 +123,49 @@ if ($appState == WW::no_login) { // If the user is not logged in show the login 
                 </fieldset>
             </form>';
 } else { // If the user is logged in show the app UI.
-    // TODO: create app UI
+    echo '            <div id="navigation">
+                <button id="navigationToggle">
+                    <img src="media/menu.svg" loading="lazy" />
+                    <span>Menu</span>
+                </button>
+                <button id="navigationEditor">
+                    <img src="media/editor.svg" loading="lazy" />
+                    <span>Editor</span>
+                </button>
+                <div>
+                    <button class="navigationFile">
+                        <img src="media/file.svg" loading="lazy" />
+                        <span>Placeholder file button lalalalalalal</span>
+                    </button>
+                    <button id="navigationNewFile">
+                        <img src="media/new.svg" loading="lazy" />
+                        <span>New file</span>
+                    </button>
+                </div>
+                <button id="navigationSettings">
+                    <img src="media/settings.svg" loading="lazy" />
+                    <span>Settings</span>
+                </button>
+                <button id="navigationLogout">
+                    <img src="media/logout.svg" loading="lazy" />
+                    <span>Log out</span>
+                </button>
+            </div>
+            <div id="editor">
+                <h1>Editor</h1>
+            </div>
+            <div id="settings">
+                <h1>Settings</h1>
+            </div>
+            <div id="logout">
+                <div>
+                    Are you sure you want to log out?
+                    <div>
+                        <button id="logoutConfirm">Log out</button>
+                        <button id="logoutCancel">Cancel</button>
+                    </div>
+                </div>
+            </div>';
 }
 
 ?>

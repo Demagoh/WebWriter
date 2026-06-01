@@ -1,6 +1,7 @@
 /// Imports
 import {WebSocketManager} from "./WebSocketManager.js";
 import {loginFormHandler, loginForm} from "./login.js";
+import {navigation, navigationHandler} from "./navigation.js";
 
 
 
@@ -24,6 +25,16 @@ for (let i = 0; i < cookies.length; i++) {
 
 if (loggedIn === -1) {
     loginFormHandler(requestServer);
+} else {
+    navigationHandler(logoutUser);
+}
+
+/**
+ * Function for logging out the user.
+ */
+function logoutUser() {
+    document.cookie = ("webwriter=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 UTC");
+    window.location.reload();
 }
 
 
@@ -93,7 +104,12 @@ function handleServerResponse(message) {
 
                     loginForm.submitButton.classList.remove("validInputs");
                 } else {
-                    document.cookie = ("webwriter=" + serverResponse.response.cookieValue);
+                    let timeToExpire = new Date();
+                    timeToExpire.setTime(timeToExpire.getTime() + 31536000000);
+                    timeToExpire = timeToExpire.toUTCString();
+                    document.cookie = ("webwriter=" + serverResponse.response.cookieValue +
+                        "; Path=/" +
+                        "; Expires=" + timeToExpire);
                     window.location.reload();
                 }
                 break;
@@ -124,3 +140,14 @@ function handleServerResponse(message) {
         console.error(serverResponse.response.reason);
     }
 }
+
+setInterval(() => {
+    if (navigation.buttons) {
+        for (let i = 0; i < navigation.buttons.length; i++) {
+            let text = navigation.buttons[i].getElementsByTagName("span")[0];
+            if (text.innerText.length > 20) {
+                text.innerHTML = text.innerText.slice(0, 17).trim() + "..."; 
+            }
+        }
+    }
+}, 50);
