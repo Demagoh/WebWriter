@@ -59,9 +59,9 @@
     --transition-duration: 0.2s;
     --transition-timing-function: ease;
 
-    --input-background-colour: #2A2A2A;
-    --input-hovering-background-colour: var(--input-background-colour);
-    --input-not-hovering-background-colour: #222;
+    --input-background-colour: var(--background-colour-darker);
+    --input-hovering-background-colour: var(--background-colour);
+    --input-not-hovering-background-colour: var(--background-colour-darker);
 }
 
 @media screen and (device-width <= 450px) and (orientation: portrait) {

@@ -20,6 +20,8 @@ export const loginForm = {
     form : document.getElementById("loginForm"),
     usernameInput : document.getElementById("loginFormUsername"),
     passwordInput : document.getElementById("loginFormPassword"),
+    passwordRevealButton : document.getElementById("loginFormPasswordReveal"),
+    passwordRevealImage : document.getElementById("loginFormPasswordRevealImage"),
     submitButton : document.getElementById("loginFormSubmit"),
     errorField : document.getElementById("loginFormError"),
     previousUsernameValue : " ",
@@ -105,6 +107,19 @@ export function loginFormHandler(requestServer) {
             loginForm.submitButton.classList.add("validInputs");
         } else {
             loginForm.submitButton.classList.remove("validInputs");
+        }
+    });
+
+
+
+    // handle password reveal/conceal
+    loginForm.passwordRevealButton.addEventListener("click", () => {
+        if (loginForm.passwordInput.getAttribute("type") === "password") {
+            loginForm.passwordInput.setAttribute("type", "text");
+            loginForm.passwordRevealImage.setAttribute("src", "media/eyeInvisible.svg");
+        } else {
+            loginForm.passwordInput.setAttribute("type", "password");
+            loginForm.passwordRevealImage.setAttribute("src", "media/eyeVisible.svg");
         }
     });
 }

@@ -21,6 +21,8 @@ html, body, #page {
 }
 
 #loginForm {
+    background-color: var(--background-colour-darker);
+
     width: 330pt;
 
     margin: var(--margin-normal);
@@ -167,6 +169,57 @@ html, body, #page {
         font-size: var(--font-size-smaller);
 
         color: var(--error-red);
+    }
+
+    fieldset {
+        padding: 0;
+
+        border: none;
+
+        display: flex;
+        gap: var(--margin-smaller);
+
+        input {
+            width: 100%;
+        }
+
+        #loginFormPasswordReveal {
+            background-color: var(--input-not-hovering-background-colour);
+    
+            border: var(--border-thickness-thin) var(--border-style) var(--border-not-hovering-colour-dark);
+            border-radius: var(--border-radius-small);
+
+            padding: 0;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            aspect-ratio: 1;
+
+            cursor: pointer;
+
+            transition: all var(--transition-duration) var(--transition-timing-function);
+
+            img {
+                max-width: 75%;
+                height: 75%;
+
+                filter: brightness(calc(187/255));
+
+                transition: all var(--transition-duration) var(--transition-timing-function);
+            }
+        }
+    
+        #loginFormPasswordReveal:hover {
+            background-color: var(--input-hovering-background-colour);
+
+            border-color: var(--border-hovering-colour-dark);
+
+            img {
+                filter: brightness(1);
+            }
+        }
     }
 }
 

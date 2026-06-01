@@ -108,7 +108,12 @@ if ($appState == WW::no_login) { // If the user is not logged in show the login 
                 </fieldset>
                 <fieldset>
                     <label>Password</label>
-                    <input id="loginFormPassword" minlength="8" type="password" required />
+                    <fieldset>
+                        <input id="loginFormPassword" minlength="8" type="password" required />
+                        <button type="button" id="loginFormPasswordReveal">
+                            <img id="loginFormPasswordRevealImage" src="media/eyeVisible.svg" loading="lazy" />
+                        </button>
+                    </fieldset>
                 </fieldset>
                 <fieldset>
                     <span id="loginFormError"></span>
