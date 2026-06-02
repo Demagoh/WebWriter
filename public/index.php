@@ -145,7 +145,7 @@ if ($appState == WW::no_login) { // If the user is not logged in show the login 
                         <div class="profileImageContainer">
                             <img src="media/placeholderLogo.png" loading="lazy" />
                         </div>
-                        <span id="navigationProfileUsername"><span style="font-style: oblique var(--font-lean);">Loading</span></span>
+                        <span id="navigationProfileUsername"><span style="font-style: oblique var(--font-lean);">[Loading]</span></span>
                     </div>
                     <button id="navigationSettings">
                         <img src="media/settings.svg" loading="lazy" />
@@ -175,6 +175,7 @@ if ($appState == WW::no_login) { // If the user is not logged in show the login 
 }
 
 ?>
+            <p id="statusDisplay">Loading page<span class="animatedDots"></span></p>
         </div>
     </body>
 </html>

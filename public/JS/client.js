@@ -5,6 +5,13 @@ import {navigation, navigationHandler} from "./navigation.js";
 
 
 
+/// Variables
+let statusDisplay = document.getElementById("statusDisplay");
+let isConnected = false;
+let gotDataAt = -1;
+
+
+
 /// Login
 let userData = {
     ID : null,
@@ -40,14 +47,23 @@ function logoutUser() {
 
 
 /// WebSocket
+let serverConnection = null;
 
-let serverConnection = new WebSocketManager(
-    "wss://ws.demagoh.com/",
-    handleServerResponse,
-    handleUpdate
-);
+console.info("Loading page...");
 
-function handleUpdate(status) {
+window.onload = () => {
+    console.info("Page loaded.");
+
+    statusDisplay.innerHTML = 'Connecting to the server<span class="animatedDots"></span>';
+
+    serverConnection = new WebSocketManager(
+        "wss://ws.demagoh.com/",
+        handleServerResponse,
+        handleUpdate
+    );
+}
+
+function handleUpdate(status, reconnectAttempt = 0) {
     switch (status) {
         case "registered":
             /* requestServer({
@@ -57,7 +73,12 @@ function handleUpdate(status) {
                 }
             }); */
 
+            statusDisplay.style.display = "fixed";
+            statusDisplay.innerHTML = 'Connected to the server!';
+            isConnected = true;
+            
             if (loggedIn !== -1) {
+                statusDisplay.innerHTML = 'Getting user data<span class="animatedDots"></span>';
                 requestServer({
                     request : "user/data",
                     data : {
@@ -65,6 +86,20 @@ function handleUpdate(status) {
                     }
                 });
             }
+            break;
+        case "failed":
+            statusDisplay.style.display = "fixed";
+            statusDisplay.classList.add("error");
+            statusDisplay.innerHTML = 'Failed to connect to the server.';
+            break;
+        case "reconnecting":
+            statusDisplay.style.display = "fixed";
+            statusDisplay.innerHTML = 'Lost connection to the server, reconnecting (attempt #' + reconnectAttempt + ')<span class="animatedDots"></span>'
+            break;
+        case "abandoned":
+            statusDisplay.style.display = "fixed";
+            statusDisplay.classList.add("error");
+            statusDisplay.innerHTML = 'Failed to reconnect to the server. Abandoning further connection attempts.';
             break;
     }
 }
@@ -122,6 +157,9 @@ function handleServerResponse(message) {
 
                             navigation.profileUsername.innerHTML = userData.username;
 
+                            statusDisplay.innerHTML = "Received user data!";
+                            gotDataAt = new Date().getTime();
+
                             // there's no point in getting the user data from the server every time
                             // the WebSocket reconnects
                             loggedIn = -1;
@@ -142,3 +180,12 @@ function handleServerResponse(message) {
         console.error(serverResponse.response.reason);
     }
 }
+
+setInterval(() => {
+    if (gotDataAt !== -1) {
+        if (new Date().getTime() - gotDataAt > 2000) {
+            gotDataAt = -1;
+            statusDisplay.style.display = "none";
+        }
+    }
+}, 50);

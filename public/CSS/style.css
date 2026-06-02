@@ -516,3 +516,61 @@ html, body, #page {
         }
     }
 }
+
+#statusDisplay {
+    position: fixed;
+
+    bottom: 0;
+    left: 0;
+
+    background: linear-gradient(
+        #15151500,
+        var(--background-colour-dark) 50%,
+        var(--background-colour-dark)
+    );
+
+    margin: 0;
+    padding: var(--padding-small);
+
+    width: 100%;
+
+    font-family: var(--font-monospace);
+    font-size: calc(var(--font-size-small)/1.25);
+
+    color: var(--font-colour-discrete);
+}
+
+#statusDisplay:is(.error) {
+    color: var(--error-red);
+}
+
+.animatedDots:after {
+    content: "...";
+
+    animation-name: animateDots;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+}
+
+@keyframes animateDots {
+    0% {
+        content: ".";
+    }
+
+    25% {
+        content: ".";
+    }
+
+    26% {
+        content: "..";
+    }
+
+    50% {
+        content: "..";
+    }
+
+    100% {
+        conent: "...";
+    }
+}
