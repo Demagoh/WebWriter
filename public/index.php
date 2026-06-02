@@ -132,7 +132,7 @@ if ($appState == WW::no_login) { // If the user is not logged in show the login 
                     <img src="media/editor.svg" loading="lazy" />
                     <span>Editor</span>
                 </button>
-                <div>
+                <div id="navigationFiles">
                     <button class="navigationFile">
                         <img src="media/file.svg" loading="lazy" />
                         <span>Placeholder file button lalalalalalal</span>
@@ -142,14 +142,22 @@ if ($appState == WW::no_login) { // If the user is not logged in show the login 
                         <span>New file</span>
                     </button>
                 </div>
-                <button id="navigationSettings">
-                    <img src="media/settings.svg" loading="lazy" />
-                    <span>Settings</span>
-                </button>
-                <button id="navigationLogout">
-                    <img src="media/logout.svg" loading="lazy" />
-                    <span>Log out</span>
-                </button>
+                <section>
+                    <div id="navigationProfile">
+                        <div class="profileImageContainer">
+                            <img src="media/placeholderLogo.png" loading="lazy" />
+                        </div>
+                        <span id="navigationProfileUsername"><span style="font-style: oblique var(--font-lean);">Loading</span></span>
+                    </div>
+                    <button id="navigationSettings">
+                        <img src="media/settings.svg" loading="lazy" />
+                        <span>Settings</span>
+                    </button>
+                    <button id="navigationLogout">
+                        <img src="media/logout.svg" loading="lazy" />
+                        <span>Log out</span>
+                    </button>
+                </section>
             </div>
             <div id="editor">
                 <h1>Editor</h1>

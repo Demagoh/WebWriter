@@ -140,14 +140,3 @@ function handleServerResponse(message) {
         console.error(serverResponse.response.reason);
     }
 }
-
-setInterval(() => {
-    if (navigation.buttons) {
-        for (let i = 0; i < navigation.buttons.length; i++) {
-            let text = navigation.buttons[i].getElementsByTagName("span")[0];
-            if (text.innerText.length > 20) {
-                text.innerHTML = text.innerText.slice(0, 17).trim() + "..."; 
-            }
-        }
-    }
-}, 50);

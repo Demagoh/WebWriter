@@ -5,6 +5,8 @@ export const navigation = {
     settingsButton : document.getElementById("navigationSettings"),
     logoutButton : document.getElementById("navigationLogout"),
     buttons : null,
+    profile : document.getElementById("navigationProfile"),
+    profileUsername : document.getElementById("navigationProfileUsername"),
     status : "full",
     editorElement : document.getElementById("editor"),
     settingsElement : document.getElementById("settings"),
@@ -29,6 +31,11 @@ export function navigationHandler(logoutFunction) {
         if (navigation.status === "full") {
             navigation.status = "minimized";
             navigation.element.style.width = "initial";
+            navigation.element.style.minWidth = "0";
+
+            navigation.profile.style.padding = "0";
+            navigation.profile.style.gap = "initial";
+            navigation.profileUsername.style.display = "none";
 
             for (let i = 0; i < navigation.buttons.length; i++) {
                 navigation.buttons[i].style.padding = "var(--padding-small) calc(var(--padding-small) + (var(--padding-smaller) - var(--padding-small))/2)";
@@ -38,6 +45,11 @@ export function navigationHandler(logoutFunction) {
         } else {
             navigation.status = "full";
             navigation.element.style.width = "15%";
+            navigation.element.style.minWidth = "180pt";
+
+            navigation.profile.style.padding = "0 var(--padding-small)";
+            navigation.profile.style.gap = "var(--margin-smaller)";
+            navigation.profileUsername.style.display = "initial";
 
             for (let i = 0; i < navigation.buttons.length; i++) {
                 navigation.buttons[i].style.padding = "var(--padding-small) var(--padding-smaller)";
