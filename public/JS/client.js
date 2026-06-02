@@ -120,6 +120,8 @@ function handleServerResponse(message) {
                             userData.ID = serverResponse.response.userID;
                             userData.username = serverResponse.response.username;
 
+                            navigation.profileUsername.innerHTML = userData.username;
+
                             // there's no point in getting the user data from the server every time
                             // the WebSocket reconnects
                             loggedIn = -1;

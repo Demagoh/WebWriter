@@ -1,7 +1,6 @@
 export const navigation = {
     element : document.getElementById("navigation"),
     toggleButton : document.getElementById("navigationToggle"),
-    editorButton : document.getElementById("navigationEditor"),
     settingsButton : document.getElementById("navigationSettings"),
     logoutButton : document.getElementById("navigationLogout"),
     buttons : null,
@@ -35,6 +34,7 @@ export function navigationHandler(logoutFunction) {
 
             navigation.profile.style.padding = "0";
             navigation.profile.style.gap = "initial";
+            navigation.profile.style.gridTemplateColumns = "calc(var(--padding-small)*2 + 2px*2 + 18pt)";
             navigation.profileUsername.style.display = "none";
 
             for (let i = 0; i < navigation.buttons.length; i++) {
@@ -49,6 +49,7 @@ export function navigationHandler(logoutFunction) {
 
             navigation.profile.style.padding = "0 var(--padding-small)";
             navigation.profile.style.gap = "var(--margin-smaller)";
+            navigation.profile.style.gridTemplateColumns = "calc(var(--padding-small)*2 + 2px*2 + 18pt) 1fr";
             navigation.profileUsername.style.display = "initial";
 
             for (let i = 0; i < navigation.buttons.length; i++) {
@@ -62,13 +63,6 @@ export function navigationHandler(logoutFunction) {
 
 
     // handle editor/settings switching
-    navigation.editorButton.addEventListener("click", () => {
-        if (getComputedStyle(navigation.editorElement, null)["display"] === "none") {
-            navigation.editorElement.style.display = "initial";
-            navigation.settingsElement.style.display = "none";
-        }
-    });
-
     navigation.settingsButton.addEventListener("click", () => {
         if (getComputedStyle(navigation.settingsElement, null)["display"] === "none") {
             navigation.settingsElement.style.display = "initial";

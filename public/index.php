@@ -128,19 +128,17 @@ if ($appState == WW::no_login) { // If the user is not logged in show the login 
                     <img src="media/menu.svg" loading="lazy" />
                     <span>Menu</span>
                 </button>
-                <button id="navigationEditor">
-                    <img src="media/editor.svg" loading="lazy" />
-                    <span>Editor</span>
+                <button id="navigationNewFile">
+                    <img src="media/new.svg" loading="lazy" />
+                    <span>New file</span>
                 </button>
                 <div id="navigationFiles">
+                    <div></div>
                     <button class="navigationFile">
                         <img src="media/file.svg" loading="lazy" />
                         <span>Placeholder file button lalalalalalal</span>
                     </button>
-                    <button id="navigationNewFile">
-                        <img src="media/new.svg" loading="lazy" />
-                        <span>New file</span>
-                    </button>
+                    <div></div>
                 </div>
                 <section>
                     <div id="navigationProfile">

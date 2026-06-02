@@ -250,7 +250,7 @@ html, body, #page {
 
     box-sizing: border-box;
 
-    transition: all var(--transition-duration) var(--transition-timing-function);
+    transition: border-color var(--transition-duration) var(--transition-timing-function);
 }
 
 #navigation:hover {
@@ -270,11 +270,14 @@ html, body, #page {
     margin-right: var(--margin-small);
     padding: var(--padding-normal);
 
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: min-content min-content minmax(calc(var(--margin-big)*4), auto) min-content;
     gap: var(--margin-smaller);
+    justify-content: center;
 
     overflow-y: auto;
+    overflow-x: hidden;
 
     button {
         background-color: var(--background-colour-darker);
@@ -296,6 +299,8 @@ html, body, #page {
 
         cursor: pointer;
 
+        box-sizing: border-box;
+
         transition: all var(--transition-duration) var(--transition-timing-function);
 
         span {
@@ -314,7 +319,7 @@ html, body, #page {
         font-style: oblique var(--font-lean);
     }
 
-    #navigationEditor:hover {
+    #navigationNewFile:hover {
         border-color: var(--accent);
     }
 
@@ -333,6 +338,11 @@ html, body, #page {
         flex-direction: column;
         gap: var(--margin-smaller);
 
+        box-sizing: border-box;
+
+        overflow-y: auto;
+        scrollbar-width: none;
+
         button {
             border-style: var(--border-style-sub);
 
@@ -341,8 +351,31 @@ html, body, #page {
             cursor: pointer;
         }
 
-        #navigationNewFile:hover {
-            border-color: var(--accent-lighter);
+        div:first-of-type, div:last-of-type {
+            position: sticky;
+        }
+
+        div:first-of-type {
+            background: linear-gradient(
+                var(--background-colour-darker),
+                #15151500
+            );
+
+            top: 0;
+
+            min-height: var(--padding-normal);
+        }
+
+        div:last-of-type {
+            background: linear-gradient(
+                #15151500,
+                var(--background-colour-darker) 50%,
+                var(--background-colour-darker)
+            );
+
+            bottom: 0;
+
+            min-height: calc(var(--padding-normal)*2);
         }
     }
 
@@ -355,23 +388,27 @@ html, body, #page {
         grid-auto-rows: calc(var(--padding-small)*2 + 2px*2 + 18pt);
         gap: var(--margin-smaller);
 
+        box-sizing: border-box;
+
         transition: all var(--transition-duration) var(--transition-timing-function);
 
         div:not(.profileImageContainer) {
             padding: 0 var(--padding-small);
 
             display: grid;
-            grid-template-columns: calc(var(--padding-small)*2 + 2px*2 + 18pt) auto;
+            grid-template-columns: calc(var(--padding-small)*2 + 2px*2 + 18pt) 1fr;
             grid-template-rows: calc(var(--padding-small)*2 + 2px*2 + 18pt);
             gap: var(--margin-smaller);
             align-items: center;
+            justify-content: center;
             
             div:is(.profileImageContainer) {
                 display: flex;
                 justify-content: center;
+                align-items: center;
                 
                 img {
-                    width: 90%;
+                    width: 93%;
 
                     object-fit: cover;
 
