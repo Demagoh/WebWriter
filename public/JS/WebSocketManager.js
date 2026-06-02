@@ -85,6 +85,7 @@ export class WebSocketManager {
                         }
                     }
 
+                    this.runOnConnectionUpdate?.("failed");
                     console.error(fullResponse.reason);
                 };
 
