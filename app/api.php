@@ -65,7 +65,8 @@ switch ($request[0]) {
             } else {
                 response([
                     "status" => "success",
-                    "cookieValue" => hash("sha256", $username) .$password
+                    "cookieValue" => hash("sha256", $query->fetch(PDO::FETCH_ASSOC)["ID"])
+                        .hash("sha256", $username) .$password
                 ]);
             }
         } else {
@@ -88,13 +89,16 @@ switch ($request[0]) {
 
                 $cookie = $data["cookie"];
 
-                $username = substr($cookie, 0, 64);
-                $password = substr($cookie, 64, 64);
+                $userID = substr($cookie, 0, 64);
+                $username = substr($cookie, 64, 64);
+                $password = substr($cookie, 128, 64);
 
                 $query = $DB->prepare(" SELECT ID, Username
                                         FROM User
-                                        WHERE SHA2(Username, 256) = :username AND
+                                        WHERE SHA2(ID, 256) = :userID AND
+                                        SHA2(Username, 256) = :username AND
                                         Password = :password;");
+                $query->bindParam(":userID", $userID);
                 $query->bindParam(":username", $username);
                 $query->bindParam(":password", $password);
                 if ($query->execute()) {
@@ -107,7 +111,7 @@ switch ($request[0]) {
                     ]);
                 } else {
                     response([
-                        "reason" => "Something went wrong when retrieving stored user data."
+                        "reason" => "Something went wrong while retrieving stored user data."
                     ]);
                 }
             default:

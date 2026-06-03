@@ -30,13 +30,16 @@ $appState = WW::undetermined;   // Used for handling app states. An enum would'v
 // Check for WebWriter cookies.
 foreach ($_COOKIE as $cookieName => $cookieValue) {
     if ($cookieName == "webwriter") {
-        $username = substr($cookieValue, 0, 64);
-        $password = substr($cookieValue, 64, 64);
+        $userID = substr($cookieValue, 0, 64);
+        $username = substr($cookieValue, 64, 64);
+        $password = substr($cookieValue, 128, 64);
 
         $query = $DB->prepare(" SELECT ID
                                 FROM User
-                                WHERE SHA2(Username, 256) = :username AND
+                                WHERE SHA2(ID, 256) = :userID AND
+                                SHA2(Username, 256) = :username AND
                                 Password = :password;");
+        $query->bindParam(":userID", $userID);
         $query->bindParam(":username", $username);
         $query->bindParam(":password", $password);
         if ($query->execute()) {
