@@ -39,7 +39,7 @@ export function loginFormHandler(requestServer) {
     loginForm.form.addEventListener("submit", (e) => {
         e.preventDefault();
 
-        let username = loginForm.usernameInput.value;
+        let username = loginForm.usernameInput.value.toLowerCase();
         let password = loginForm.passwordInput.value;
 
         if (!(username.length >= 3 && username.length <= 30)) {
