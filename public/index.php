@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+<html>
 <?php
 
 /**
@@ -65,30 +67,24 @@ if ($appState == WW::login_invalid) {   // Delete WebWriter's cookie if it is in
     $appState = WW::no_login;
 }
 
-/// Generate HTML
-$HTML = "<!DOCTYPE html>\n<html>\n";
-
-// <head>
-$headElements = [ // A collection of things to set up for the website's HTML <head>.
+// Generate and display <head> element
+$headProperties = [ // A collection of things to set up for the website's HTML <head>.
     "title" => "WebWriter",
+    "description" => "A small web-based writing application, developed by Demagoh.",
     "favicon" => "media/placeholderLogo.png",
     "stylesheets" => [
         "CSS/style.css"
     ],
-    "keywords" => "WebWriter",
-    "description" => "A small web-based writing application, developed by Demagoh.",
-    "author" => "Demagoh",
     "scripts" => [],
     "modules" => [
         "JS/client.js"
     ],
-    "port" => "https://" .str_replace(":{$_SERVER["SERVER_PORT"]}", "", $_SERVER["HTTP_HOST"])
-        .str_replace(".php", "", $_SERVER["REQUEST_URI"])
+    "keywords" => "WebWriter",
+    "author" => "Demagoh"
 ];
-$HTML .= HTMLHead($headElements); // Generate the HTML <head> element and its subelements.
+$headString = HTMLHead($headProperties); // Generate the HTML <head> element and its subelements.
 
-/// Display generated HTML
-echo $HTML;
+echo $headString;
 
 ?>
     <body>

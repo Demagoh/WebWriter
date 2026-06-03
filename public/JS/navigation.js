@@ -18,7 +18,7 @@ export const navigation = {
 /**
  * Function for applying an event listener to the navigation element's child elements.
  * 
- * @param       function    Function for logging the user out.
+ * @param       function    logoutFunction      Function for logging the user out.
  * @returns     void
  */
 export function navigationHandler(logoutFunction) {
