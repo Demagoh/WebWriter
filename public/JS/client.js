@@ -73,7 +73,7 @@ function handleUpdate(status, reconnectAttempt = 0) {
                 }
             }); */
 
-            statusDisplay.style.display = "fixed";
+            statusDisplay.style.display = "initial";
             statusDisplay.innerHTML = 'Connected to the server!';
             isConnected = true;
             
@@ -88,18 +88,23 @@ function handleUpdate(status, reconnectAttempt = 0) {
             }
             break;
         case "failed":
-            statusDisplay.style.display = "fixed";
+            statusDisplay.style.display = "initial";
             statusDisplay.classList.add("error");
             statusDisplay.innerHTML = 'Failed to connect to the server.';
+            isConnected = false;
             break;
         case "reconnecting":
-            statusDisplay.style.display = "fixed";
-            statusDisplay.innerHTML = 'Lost connection to the server, reconnecting (attempt #' + reconnectAttempt + ')<span class="animatedDots"></span>'
+            statusDisplay.style.display = "initial";
+            statusDisplay.innerHTML = 'Lost connection to the server, reconnecting (attempt #'
+                + reconnectAttempt + ')<span class="animatedDots"></span>'
+            isConnected = false;
             break;
         case "abandoned":
-            statusDisplay.style.display = "fixed";
+            statusDisplay.style.display = "initial";
             statusDisplay.classList.add("error");
-            statusDisplay.innerHTML = 'Failed to reconnect to the server. Abandoning further connection attempts.';
+            statusDisplay.innerHTML = 'Failed to reconnect to the server. Abandoning further' +
+                ' connection attempts.';
+            isConnected = false;
             break;
     }
 }
@@ -160,10 +165,6 @@ function handleServerResponse(message) {
                             statusDisplay.innerHTML = "Received user data!";
                             gotDataAt = new Date().getTime();
 
-                            // there's no point in getting the user data from the server every time
-                            // the WebSocket reconnects
-                            loggedIn = -1;
-
                             // console.log(userData);
                             break;
                         default:
@@ -182,10 +183,25 @@ function handleServerResponse(message) {
 }
 
 setInterval(() => {
-    if (gotDataAt !== -1) {
+    // hide status display when logged in
+    if (gotDataAt !== -1 && userData.ID !== null) {
         if (new Date().getTime() - gotDataAt > 2000) {
             gotDataAt = -1;
             statusDisplay.style.display = "none";
+        }
+    }
+
+    // hide status display when not logged in
+    if (loggedIn === -1 && userData.ID === null) {
+        if (isConnected) {
+            if (gotDataAt === -1) {
+                gotDataAt = new Date().getTime();
+            } else if (new Date().getTime() - gotDataAt > 2000) {
+                gotDataAt = 0;
+                statusDisplay.style.display = "none";
+            }
+        } else {
+            gotDataAt = -1;
         }
     }
 }, 50);
