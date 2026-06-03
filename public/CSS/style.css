@@ -1,5 +1,8 @@
 @import url(variables.css);
 
+
+
+/* Universal styling */
 html, body {
     margin: 0;
     padding: 0;
@@ -20,6 +23,9 @@ html, body, #page {
     align-items: center;
 }
 
+
+
+/* Login styling */
 #loginForm {
     background-color: var(--background-colour-darker);
 
@@ -236,6 +242,9 @@ html, body, #page {
     align-items: center;
 }
 
+
+
+/* Dashboard styling */
 #navigation, #editor, #settings {
     height: calc(100% - var(--margin-normal)*2);
 
@@ -401,20 +410,6 @@ html, body, #page {
             gap: var(--margin-smaller);
             align-items: center;
             justify-content: center;
-            
-            div:is(.profileImageContainer) {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                
-                img {
-                    width: 93%;
-
-                    object-fit: cover;
-
-                    aspect-ratio: 1;
-                }
-            }
 
             span {
                 display: initial;
@@ -449,7 +444,37 @@ html, body, #page {
 #settings {
     display: none;
 }
+            
+div:is(.profileImageContainer) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    img {
+        width: 93%;
 
+        border: var(--border-thickness) var(--border-style) var(--accent);
+        border-radius: 50%;
+
+        object-fit: cover;
+
+        aspect-ratio: 1;
+
+        transition: all var(--transition-duration) var(--transition-timing-function);
+    }
+
+    img:is(.idle) {
+        border-color: var(--navigation-a-colour);
+    }
+
+    img:is(.disconnected) {
+        border-color: var(--error-red);
+    }
+}
+
+
+
+/* Logout styling */
 #logout {
     background-color: #00000088;
 
@@ -517,6 +542,9 @@ html, body, #page {
     }
 }
 
+
+
+/* Additional styling */
 #statusDisplay {
     position: fixed;
 

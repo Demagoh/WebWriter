@@ -146,7 +146,7 @@ if ($appState == WW::no_login) { // If the user is not logged in show the login 
                 <section>
                     <div id="navigationProfile">
                         <div class="profileImageContainer">
-                            <img src="media/placeholderLogo.png" loading="lazy" />
+                            <img class="profileImage userProfileImage" src="media/defaultPFP.png" loading="lazy" />
                         </div>
                         <span id="navigationProfileUsername"><span style="font-style: oblique var(--font-lean);">[Loading]</span></span>
                     </div>

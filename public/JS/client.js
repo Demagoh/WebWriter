@@ -8,7 +8,10 @@ import {navigation, navigationHandler} from "./navigation.js";
 /// Variables
 let statusDisplay = document.getElementById("statusDisplay");
 let isConnected = false;
+let isDisplayingDisconnected = false;
+let isActive = true;
 let gotDataAt = -1;
+let lastActivity = new Date().getTime();
 
 
 
@@ -107,6 +110,14 @@ function handleUpdate(status, reconnectAttempt = 0) {
             isConnected = false;
             break;
     }
+
+    if (!isConnected && !isDisplayingDisconnected) {
+        isDisplayingDisconnected = true;
+        toggleUserStatus("disconnected");
+    } else if (isConnected && isDisplayingDisconnected) {
+        isDisplayingDisconnected = false;
+        toggleUserStatus("disconnected");
+    }
 }
 
 
@@ -182,6 +193,12 @@ function handleServerResponse(message) {
     }
 }
 
+
+
+/// Handling live updates
+/**
+ * Interval for handling the status display and user activity updates every 50ms.
+ */
 setInterval(() => {
     // hide status display when logged in
     if (gotDataAt !== -1 && userData.ID !== null) {
@@ -204,4 +221,51 @@ setInterval(() => {
             gotDataAt = -1;
         }
     }
+
+    // handle activity updates
+    if (loggedIn !== -1 && isActive) {
+        // users go idle after 10 minutes of inactivity
+        if (new Date().getTime() - lastActivity > 10*60*1000 && isConnected) {
+            isActive = false;
+
+            toggleUserStatus("idle");
+
+            // TODO: send update to server when a user goes idle
+            // TODO: handle user disconnects on the server as well
+        }
+    }
 }, 50);
+
+/**
+ * Function for toggling the user's status.
+ * 
+ * @param   string      status      The user's new status.
+ * @param   string      username    The user's username.
+ * @return  void
+ */
+function toggleUserStatus(status, username = "") {
+    let profileImages = document.getElementsByClassName("userProfileImage" + username);
+    for (let i = 0; i < profileImages.length; i++) {
+        if (!profileImages[i].classList.contains(status)) {
+            profileImages[i].classList.add(status);
+        } else {
+            profileImages[i].classList.remove(status);
+        }
+    }
+}
+
+document.addEventListener("keydown", activityDetected);
+
+document.addEventListener("mousedown", activityDetected);
+
+/**
+ * Function for handling user activity when it is detected.
+ */
+function activityDetected() {
+    if (!isActive) {
+        isActive = true;
+        toggleUserStatus("idle");
+    }
+
+    lastActivity = new Date().getTime();
+}
