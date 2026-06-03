@@ -12,6 +12,7 @@ let isDisplayingDisconnected = false;
 let isActive = true;
 let gotDataAt = -1;
 let lastActivity = new Date().getTime();
+const originalPageTitle = document.title;
 
 
 
@@ -250,6 +251,18 @@ function toggleUserStatus(status, username = "") {
             profileImages[i].classList.add(status);
         } else {
             profileImages[i].classList.remove(status);
+        }
+    }
+
+    if (username === "" && loggedIn !== -1) {
+        if (!isActive && isConnected) {
+            document.title = originalPageTitle + " (idle)";
+        } else if (isActive && !isConnected) {
+            document.title = originalPageTitle + " (disconnected)";
+        } else if(!isActive && !isConnected) {
+            document.title = originalPageTitle + " (idle & disconnected)";
+        } else {
+            document.title = originalPageTitle;
         }
     }
 }
